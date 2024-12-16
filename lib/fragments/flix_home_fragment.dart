@@ -1,3 +1,5 @@
+import 'package:fantasyapp/fragments/create_leaguge_new.dart';
+import 'package:fantasyapp/fragments/flix_leageue_matches.dart';
 import 'package:fantasyapp/fragments/flix_sub_home_fragment.dart';
 import 'package:fantasyapp/main.dart';
 import 'package:fantasyapp/utils/flix_app_widgets.dart';
@@ -33,9 +35,9 @@ class HomeFragmentState extends State<HomeFragment> {
           iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : black),
           backgroundColor: muvi_navigationBackground,
           centerTitle: false,
-          title: flixTitle(context),
+          leading: flixTitle2(context),
           actions: [notificationIcon(context, 2)],
-          bottom: PreferredSize(
+          bottom: const PreferredSize(
             preferredSize: Size(double.infinity, 45),
             child: Align(
               alignment: Alignment.topLeft,
@@ -50,10 +52,10 @@ class HomeFragmentState extends State<HomeFragment> {
                 labelColor: muvi_colorPrimary,
                 labelPadding: EdgeInsets.only(left: spacing_large, right: spacing_large),
                 tabs: [
-                  Tab(child: Text("Featured")),
-                  Tab(child: Text("Series")),
-                  Tab(child: Text("Films")),
-                  Tab(child: Text("Originals")),
+                  Tab(child: Text("Ongoing Leagues")),
+                  Tab(child: Text("Active Matchups")),
+                  Tab(child: Text("Create a League")),
+                  Tab(child: Text("Join a League")),
                 ],
               ),
             ),
@@ -62,8 +64,8 @@ class HomeFragmentState extends State<HomeFragment> {
         body: TabBarView(
           children: [
             HomeCategoryFragment(type: "Featured"),
-            HomeCategoryFragment(type: "Featured"),
-            HomeCategoryFragment(type: "Featured"),
+           ActiveMatchupsPage(),
+          CreateLeaguePage(),
             HomeCategoryFragment(type: "Featured"),
           ],
         ),

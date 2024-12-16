@@ -6,8 +6,10 @@ import 'package:nb_utils/nb_utils.dart';
 
 List<HomeSlider> getSliders() {
   List<HomeSlider> list = [];
-  list.add(HomeSlider(slideImage: "images/muvi/items/element___image___square_copy_ek1.jpg", isHD: true));
-  list.add(HomeSlider(slideImage: "images/muvi/items/element___image___square_copy_ek3.jpg", isHD: false));
+  list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpoeScgqLaofY_nEwLuqULVn69jARBr2dNYg&s", isHD: true));
+
+  list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB-UDeHPF7ZLWhfE3Pdv4iwCz-sajyJLojyQ&s", isHD: true));
+  list.add(HomeSlider(slideImage: "https://www.sportspro.com/wp-content/uploads/2023/05/SP23_Commercial_Guide_Premier_League_1000x300px.png", isHD: false));
   return list;
 }
 
@@ -58,6 +60,26 @@ List<Movie> getHorizontalMovie() {
   return list;
 }
 
+ final List<Map<String, String>> featuredLeagues = [
+    {"name": "Premier League", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWgXiFJIHIQaQGzmMm__pL7kprtJso5VTP-A&s", "details": "Ongoing matches."},
+    {"name": "Champions League", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFL4V0YQSEwD76ZFCm9ET3ENPGLDE_09aymw&s", "details": "Top-tier teams competing."},
+    {"name": "Super League", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBxY9hXGPlbL0lp4RCDDnwKMErb8UzxNDpA&s", "details": "Battle of champions."},
+  ];
+
+  final List<Map<String, String>> topTeams = [
+    {"name": "Team A", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2hlJQlq5udd7LK2rcSoo5yYZ7XozChVnSGw&s"},
+    {"name": "Team B", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTENdjDCOqMnGzZGnJI44CmmIWdNxTr6nKS_w&s"},
+    {"name": "Team C", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHxQf2KBjb9u1LlGt_e5ZscT9ypiWn8GV02g&s"},
+    {"name": "Team D", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhGwbba17gYD1I7RbO_eoC4tU031KhtKEzaw&s"},
+  ];
+
+  final List<Map<String, String>> allLeagues = [
+    {"name": "League 1", "description": "Exciting matchups happening now."},
+    {"name": "League 2", "description": "Top teams battling it out."},
+    {"name": "League 3", "description": "Underdogs making a statement."},
+    {"name": "League 4", "description": "Close games and big moments."},
+  ];
+  
 List<Movie> getContinueMovies() {
   List<Movie> list = [];
   list.add(Movie(slideImage: "images/muvi/items/thumbnail_ek1.jpg", isHD: true, percent: 0.2, title: "Joker"));

@@ -77,43 +77,38 @@ class HomeCategoryFragmentState extends State<HomeCategoryFragment> {
               children: <Widget>[
                 headingText(context, "Trending this week").paddingAll(spacing_standard_new),
                 slider,
-                headingText(context, "Continue Watching").paddingOnly(
+                headingText(context, "Top Leaguges").paddingOnly(
                   left: spacing_standard_new,
                   right: spacing_standard_new,
                   top: 12,
                   bottom: spacing_standard_new,
                 ),
-                continueWatchingList,
-                headingWidViewAll(
-                  context,
-                  "Popular Movies",
-                  () {
-                    ViewAllMovieScreen(title: "Popular Movies").launch(context);
-                  },
-                ).paddingAll(spacing_standard_new),
-                popularMovieList,
-                headingWidViewAll(
-                  context,
-                  "New on Cinemas",
-                  () {
-                    ViewAllMovieScreen(title: "New on Cinemas").launch(context);
-                  },
-                ).paddingAll(spacing_standard_new),
-                newCinemaList,
-                headingText(context, "Made For You").onTap(
-                  () {
-                    ViewAllMovieScreen(title: "New on Cinemas").launch(context);
-                  },
-                ).paddingAll(spacing_standard_new),
-                madeForYouSlider,
-                headingWidViewAll(
-                  context,
-                  "Tending on Muvi",
-                  () {
-                    ViewAllMovieScreen(title: "New on Cinemas").launch(context);
-                  },
-                ).paddingAll(spacing_standard_new),
-                trendingMovieList.paddingBottom(spacing_standard_new)
+                 SizedBox(
+              height: 200,
+              child: TopFeatureList(),
+            ),
+                 headingText(context, "Top Teams").paddingOnly(
+                  left: spacing_standard_new,
+                  right: spacing_standard_new,
+                  top: 12,
+                  bottom: spacing_standard_new,
+                ),
+                 TopTeam(),
+                headingText(context, "All Leaguges").paddingOnly(
+                  left: spacing_standard_new,
+                  right: spacing_standard_new,
+                  top: 12,
+                  bottom: spacing_standard_new,
+                ),
+                ALLleaguges(),
+                // headingWidViewAll(
+                //   context,
+                //   "Tending on Muvi",
+                //   () {
+                //     ViewAllMovieScreen(title: "New on Cinemas").launch(context);
+                //   },
+                // ).paddingAll(spacing_standard_new),
+                // trendingMovieList.paddingBottom(spacing_standard_new)
               ],
             ),
           ),
@@ -121,6 +116,132 @@ class HomeCategoryFragmentState extends State<HomeCategoryFragment> {
         ],
       ),
     );
+  }
+
+  ListView ALLleaguges() {
+    return ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: allLeagues.length,
+            itemBuilder: (context, index) {
+              final league = allLeagues[index];
+              return Card(
+                color: Colors.grey[900],
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        league["name"]!,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        league["description"]!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+  }
+
+  SizedBox TopTeam() {
+    return SizedBox(
+            height: 120,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: topTeams.length,
+              itemBuilder: (context, index) {
+                final team = topTeams[index];
+                return Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: NetworkImage(team["image"]!),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        team["name"]!,
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+  }
+
+  ListView TopFeatureList() {
+    return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: featuredLeagues.length,
+              itemBuilder: (context, index) {
+                final league = featuredLeagues[index];
+                return Padding(
+                  padding: const EdgeInsets.only(right: 16.0),
+                  child: Card(
+                    color: Colors.grey[900],
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+                    child: Container(
+                      width: 300,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+                            child: Image.network(
+                              league["image"]!,
+                              height: 120,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  league["name"]!,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  league["details"]!,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
   }
 }
 
@@ -149,19 +270,19 @@ class HomeSliderWidget extends StatelessWidget {
                   slider.slideImage,
                   aWidth: cardSize.width,
                   aHeight: cardSize.height,
-                  fit: BoxFit.cover,
+                  // fit: BoxFit.cover,
                 ).cornerRadiusWithClipRRect(8),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        hdWidget(context).paddingRight(spacing_standard).visible(slider.isHD!),
-                        itemSubTitle(context, "2018"),
-                        itemSubTitle(context, "17+").paddingLeft(spacing_standard)
-                      ],
-                    ).paddingTop(spacing_control_half)
+                    // Row(
+                    //   children: <Widget>[
+                    //     hdWidget(context).paddingRight(spacing_standard).visible(slider.isHD!),
+                    //     itemSubTitle(context, "2018"),
+                    //     itemSubTitle(context, "17+").paddingLeft(spacing_standard)
+                    //   ],
+                    // ).paddingTop(spacing_control_half)
                   ],
                 ).paddingOnly(left: spacing_standard, bottom: spacing_standard_new)
               ],

@@ -140,7 +140,7 @@ AppBar appBarLayout(context, text, {darkBackground = true}) {
 Widget networkImage(String? image, {String aPlaceholder = "", double? aWidth, double? aHeight, BoxFit fit = BoxFit.fill}) {
   return CachedNetworkImage(
     placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
-    imageUrl: '$BaseUrl/$image',
+    imageUrl: image.toString().contains("https") ? image! : '$BaseUrl/$image',
     width: aWidth,
     height: aHeight,
     fit: fit,
@@ -199,6 +199,15 @@ DotsDecorator dotsDecorator(context) {
 }
 
 Widget flixTitle(context) {
+  return Image.asset(
+    ic_logo,
+    width: MediaQuery.of(context).size.width * 0.8,
+    height: 150,
+    color: muvi_colorPrimary
+  );
+}
+
+Widget flixTitle2(context) {
   return Image.asset(
     ic_logo,
     width: MediaQuery.of(context).size.width * 0.8,
