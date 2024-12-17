@@ -165,7 +165,7 @@ class MyFilesFragmentState extends State<MyFilesFragment> {
           iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : black),
           backgroundColor: muvi_navigationBackground,
           centerTitle: false,
-          title: flixTitle(context),
+          leading: flixTitle(context),
           bottom: PreferredSize(
             preferredSize: Size(double.infinity, 45),
             child: Align(

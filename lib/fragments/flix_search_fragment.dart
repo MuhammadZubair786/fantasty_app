@@ -1,205 +1,320 @@
-import 'package:fantasyapp/main.dart';
-import 'package:fantasyapp/models/flix_response.dart';
-import 'package:fantasyapp/screens/flix_view_movie_screen.dart';
-import 'package:fantasyapp/utils/flix_app_widgets.dart';
-import 'package:fantasyapp/utils/flix_constants.dart';
-import 'package:fantasyapp/utils/flix_data_generator.dart';
-import 'package:fantasyapp/utils/resources/flix_colors.dart';
-import 'package:fantasyapp/utils/resources/flix_images.dart';
-import 'package:fantasyapp/utils/resources/flix_size.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:nb_utils/nb_utils.dart';
 
-
-class SearchFragment extends StatefulWidget {
-  static String tag = '/SearchFragment';
-
-  @override
-  SearchFragmentState createState() => SearchFragmentState();
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: SearchFragment(),
+  ));
 }
 
-class SearchFragmentState extends State<SearchFragment> {
-  TextEditingController controller = TextEditingController();
-  bool isLoading = false;
-  List<Movie> popularMovieList = [];
-  List<Movie> searchResults = [];
-  var searchText = "";
+class SearchFragment extends StatefulWidget {
+  @override
+  _SearchFragmentState createState() => _SearchFragmentState();
+}
 
-  showLoading(bool show) {
-    setState(() {
-      isLoading = show;
-    });
-  }
+class _SearchFragmentState extends State<SearchFragment> {
+final List<Map<String, dynamic>> wrestlers = [
+    {
+      "name": "John Cena",
+      "wins": 10,
+      "losses": 2,
+      "rank": 1,
+      "points": 120,
+      "image": "https://media.tenor.com/zdO3lzqAQ4QAAAAM/john-cena-entrance.gif",
+      "isDrafted": false,
+    },
+    {
+      "name": "The Rock",
+      "wins": 8,
+      "losses": 4,
+      "rank": 2,
+      "points": 110,
+      "image": "https://media.tenor.com/tIipABYYssMAAAAM/the-rock-entrance.gif",
+      "isDrafted": false,
+    },
+    {
+      "name": "Roman Reigns",
+      "wins": 11,
+      "losses": 1,
+      "rank": 3,
+      "points": 125,
+      "image": "https://media.tenor.com/9thnUHjMC4QAAAAM/roman-reigns-one.gif",
+      "isDrafted": false,
+    },
+    {
+      "name": "Brock Lesnar",
+      "wins": 9,
+      "losses": 3,
+      "rank": 4,
+      "points": 115,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhT9VLVsDex9CsRfhpdA4L5sfhmnZfP_pG9w&s",
+      "isDrafted": false,
+    },
+    {
+      "name": "Seth Rollins",
+      "wins": 7,
+      "losses": 5,
+      "rank": 5,
+      "points": 100,
+      "image": "https://i.pinimg.com/originals/55/68/59/556859b5353981ab02613c24063cb0e0.gif",
+      "isDrafted": false,
+    },
+    {
+      "name": "AJ Styles",
+      "wins": 6,
+      "losses": 6,
+      "rank": 6,
+      "points": 95,
+      "image": "https://img.wattpad.com/9c93bf436a3fcd9dd829f9d1f849b8ee332c0a35/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6f766e6c376e78357470783174413d3d2d3432303731313039332e313463343766363165656562333763343136383236363737383336372e676966",
+      "isDrafted": false,
+    },
+    {
+      "name": "Edge",
+      "wins": 12,
+      "losses": 0,
+      "rank": 7,
+      "points": 130,
+      "image": "https://media.tenor.com/FFx9YWNEvLkAAAAM/edge-entrance.gif",
+      "isDrafted": false,
+    },
+    {
+      "name": "Kofi Kingston",
+      "wins": 5,
+      "losses": 7,
+      "rank": 8,
+      "points": 90,
+      "image": "https://media.tenor.com/Zi9F-1D5sO4AAAAM/the-new-day-kofi-kingston.gif",
+      "isDrafted": false,
+    },
+    {
+      "name": "Finn Balor",
+      "wins": 9,
+      "losses": 4,
+      "rank": 9,
+      "points": 105,
+      "image": "https://media.tenor.com/5tkYZ03S7LIAAAAM/finn-balor.gif",
+      "isDrafted": false,
+    },
+    {
+      "name": "Randy Orton",
+      "wins": 10,
+      "losses": 5,
+      "rank": 10,
+      "points": 110,
+      "image": "https://i.pinimg.com/originals/57/65/40/5765401589e54123f477ba2816a421af.gif",
+      "isDrafted": false,
+    },
+  ];
+
+  Timer? _timer;
+  int _remainingTime = 60;
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(
-      () {
-        //here you have the changes of your textfield
-        print("value: ${controller.text}");
-        setState(
-          () {
-            searchText = controller.text;
-          },
-        );
-        searchItems();
-      },
+    _startDraftTimer();
+  }
+
+  void _startDraftTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_remainingTime > 0) {
+        setState(() {
+          _remainingTime--;
+        });
+      } else {
+        _timer?.cancel();
+      }
+    });
+  }
+
+  void _draftWrestler(int index) {
+    setState(() {
+      wrestlers[index]['isDrafted'] = true;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("${wrestlers[index]['name']} has been drafted!"),
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 2),
+      ),
     );
-    getData();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _timer?.cancel();
     super.dispose();
-  }
-
-  getData() {
-    setState(
-      () {
-        popularMovieList.addAll(getContinueMovies());
-      },
-    );
-  }
-
-  searchItems() {
-    setState(
-      () {
-        searchResults.clear();
-        if (searchText.isNotEmpty) {
-          searchResults.addAll(getMadeForYouMovie());
-          searchResults.addAll(getMovie());
-          searchResults.addAll(getTrendingOnMovie());
-        }
-      },
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var appBar = AppBar(
-      title: toolBarTitle(context, "Search"),
-      iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : black),
-      backgroundColor: muvi_navigationBackground,
-      elevation: 0,
-      bottom: PreferredSize(
-        preferredSize: Size(double.infinity, 45),
-        child: Container(
-          height: 50,
-          color: search_edittext_color,
-          padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard),
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: controller,
-                  textInputAction: TextInputAction.search,
-                  style: TextStyle(fontFamily: font_regular, fontSize: ts_normal, color: muvi_textColorPrimary),
-                  decoration: InputDecoration(
-                    hintText: "Type title, categories, years, etc",
-                    hintStyle: TextStyle(fontFamily: font_regular, color: muvi_textColorSecondary),
-                    border: InputBorder.none,
-                    filled: false,
-                  ),
-                  onFieldSubmitted: (term) {
-                    searchItems();
-                  },
-                ),
-              ),
-              Icon(Icons.cancel, color: muvi_colorPrimary, size: 20).paddingAll(8).onTap(
-                () {
-                  setState(
-                    () {
-                      controller.clear();
-                    },
-                  );
-                },
-              ).visible(searchText.isNotEmpty),
-              Image.asset(ic_search, color: muvi_colorPrimary, width: 20, height: 20).paddingAll(8).onTap(
-                () {
-                  searchItems();
-                },
-              )
-            ],
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          "Draft Screen",
+          style: TextStyle(
+            color: Color(0xFFFE901C),
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.5,
           ),
         ),
       ),
-    );
-    var popularSearchList = ListView.builder(
-      scrollDirection: Axis.vertical,
-      itemCount: popularMovieList.length,
-      shrinkWrap: true,
-      physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new),
-      itemBuilder: (context, index) {
-        return Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(bottom: spacing_standard_new),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              networkImage(
-                popularMovieList[index].slideImage,
-                aWidth: (width * 0.5) - 42,
-                aHeight: ((width * 0.5) - 42) * (2.5 / 4),
-              ).cornerRadiusWithClipRRect(8).paddingRight(10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    itemTitle(context, popularMovieList[index].title),
-                    itemSubTitle(context, "2019"),
-                    itemSubTitle(
-                      context,
-                      "Action, 18+, Dark, Inspiring, Comedy",
-                      colorThird: true,
-                      fontsize: ts_medium,
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ).onTap(
-          () {
-            MovieScreen().launch(context);
-          },
-        );
-      },
-    );
-    var popularSearchLayout = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        headingText(context, "Popular Search").paddingAll(spacing_standard_new),
-        Expanded(child: popularSearchList),
-      ],
-    );
-    var searchResultList = MovieGridList(searchResults);
-    var searchResultLayout = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        headingText(context, "Result For" + " \'" + searchText + "\'").paddingOnly(
-          left: spacing_standard_new,
-          right: spacing_standard_new,
-          top: spacing_standard_new,
-          bottom: 12,
-        ),
-        searchResultList.expand()
-      ],
-    );
-
-    return Scaffold(
-      backgroundColor: muvi_appBackground,
-      appBar: appBar,
-      body: Stack(
+      body: Column(
         children: [
-          popularSearchLayout.visible(searchText.isEmpty),
-          searchResultLayout.visible(searchResults.isNotEmpty),
-          loadingWidgetMaker().visible(isLoading).center(),
-        ],
+          // Draft Timer Box with Gradient
+          Container(
+            margin: EdgeInsets.all(16),
+            padding: EdgeInsets.symmetric(vertical: 16),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFFE901C), Colors.orangeAccent],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.orange.withOpacity(0.6),
+                  offset: Offset(0, 4),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+            child: Center(
+              child: Text(
+                "Time Remaining: ${_remainingTime}s",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          // Divider
+          Divider(color: Colors.grey[800], thickness: 1),
+          // Wrestler List
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              itemCount: wrestlers.length,
+              itemBuilder: (context, index) {
+                final wrestler = wrestlers[index];
+                return GestureDetector(
+                  onTap: () => _draftWrestler(index),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 15),
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[850],
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black45,
+                              offset: Offset(0, 4),
+                              blurRadius: 12,
+                            ),
+                          ],
+                          border: Border.all(
+                            color: wrestler['isDrafted']
+                                ? Colors.green
+                                : Colors.transparent,
+                            width: 3,
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                // Large Image
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.network(
+                                    wrestler['image'],
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                SizedBox(width: 20),
+                                // Wrestler Info
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        wrestler['name'],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 6),
+                                      Text(
+                                        "Rank: ${wrestler['rank']} | Points: ${wrestler['points']}",
+                                        style: TextStyle(
+                                          color: Colors.grey[400],
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      SizedBox(height: 6),
+                                      Text(
+                                        "Wins: ${wrestler['wins']} | Losses: ${wrestler['losses']}",
+                                        style: TextStyle(
+                                          color: Colors.grey[400],
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Draft Button or Indicator
+                               
+                              ],
+                            ), Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            wrestler['isDrafted']
+                                ? Icon(
+                                    Icons.check_circle,
+                                    color: Colors.green,
+                                    size: 32,
+                                  )
+                                : ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Color(0xFFFE901C),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 8),
+                                    ),
+                                    onPressed: () => _draftWrestler(index),
+                                    child: Text(
+                                      "Draft",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                          ],
+                        ),
+                      ),
+                      
+                    ],
+                  ));  }))]      
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:fantasyapp/fragments/flix_home_fragment.dart';
 import 'package:fantasyapp/fragments/flix_more_fragment.dart';
 import 'package:fantasyapp/fragments/flix_my_files_fragment.dart';
 import 'package:fantasyapp/fragments/flix_search_fragment.dart';
+import 'package:fantasyapp/fragments/roaster_mangement.dart';
 import 'package:fantasyapp/utils/flix_bottom_navigation.dart';
 import 'package:fantasyapp/utils/resources/flix_colors.dart';
 import 'package:fantasyapp/utils/resources/flix_images.dart';
@@ -23,7 +24,7 @@ class HomeScreenState extends State<HomeScreen> {
   var _selectedIndex = 0;
   var homeFragment = HomeFragment();
   var searchFragment = SearchFragment();
-  var myFilesFragment = MyFilesFragment();
+  var myFilesFragment = RosterManagementScreen();
   var moreFragment = MoreFragment();
   late List<Widget> viewContainer;
   ListQueue<int> _navigationQueue = ListQueue();

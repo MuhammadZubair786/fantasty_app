@@ -11,8 +11,8 @@ const ic_walk_1 = "https://m.media-amazon.com/images/I/716RxcPD-gL.png";
 const ic_walk_3 = "https://football.socialfantasyleagues.com/assets/sfl-fantasy-football-app-screens-e64382d0.png";
 
 const ic_google = "images/muvi/icons/ic_google.png";
-const ic_search = "images/muvi/icons/ic_search.png";
-const ic_folder = "images/muvi/icons/ic_folder.png";
+const ic_search = "Icons_search";
+const ic_folder = "Icons_folder";
 const ic_home = "images/muvi/icons/ic_home.png";
 const ic_more = "images/muvi/icons/ic_more.png";
 const ic_edit_profile = "images/muvi/icons/ic_edit_profile.png";

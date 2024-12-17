@@ -1,6 +1,7 @@
 import 'package:fantasyapp/fragments/create_leaguge_new.dart';
 import 'package:fantasyapp/fragments/flix_leageue_matches.dart';
 import 'package:fantasyapp/fragments/flix_sub_home_fragment.dart';
+import 'package:fantasyapp/fragments/join_leaguge.dart';
 import 'package:fantasyapp/main.dart';
 import 'package:fantasyapp/utils/flix_app_widgets.dart';
 import 'package:fantasyapp/utils/flix_constants.dart';
@@ -66,7 +67,7 @@ class HomeFragmentState extends State<HomeFragment> {
             HomeCategoryFragment(type: "Featured"),
            ActiveMatchupsPage(),
           CreateLeaguePage(),
-            HomeCategoryFragment(type: "Featured"),
+           JoinLeaguesPage()
           ],
         ),
       ),

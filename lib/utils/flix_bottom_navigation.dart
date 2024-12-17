@@ -381,7 +381,13 @@ class _TileIcon extends StatelessWidget {
       alignment: Alignment.topCenter,
       heightFactor: 1.0,
       child: Container(
-        child: Image.asset(item.icon, width: selectedIconTheme.size, height: selectedIconTheme.size, color: selected ? selectedIconTheme.color : unselectedIconTheme.color),
+        child:item.icon.toString().contains("Icons_search",
+        ) ?Icon(Icons.people_outline_sharp,size:  selectedIconTheme.size, color: selected ? selectedIconTheme.color : unselectedIconTheme.color):
+        item.icon.toString().contains("Icons_folder",
+        ) ?
+        Icon(Icons.list_alt_sharp,size:  selectedIconTheme.size, color: selected ? selectedIconTheme.color : unselectedIconTheme.color):
+         Image.asset(item.icon, 
+        width: selectedIconTheme.size, height: selectedIconTheme.size, color: selected ? selectedIconTheme.color : unselectedIconTheme.color),
       ),
     );
   }
