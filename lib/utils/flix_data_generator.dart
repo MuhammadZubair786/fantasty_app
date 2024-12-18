@@ -6,10 +6,10 @@ import 'package:nb_utils/nb_utils.dart';
 
 List<HomeSlider> getSliders() {
   List<HomeSlider> list = [];
-  list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpoeScgqLaofY_nEwLuqULVn69jARBr2dNYg&s", isHD: true));
+  list.add(HomeSlider(slideImage: "https://www.mykhel.com/common_dynamic/images/common/pro-wrestling-league.1627678834.jpg", isHD: true));
 
-  list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB-UDeHPF7ZLWhfE3Pdv4iwCz-sajyJLojyQ&s", isHD: true));
-  list.add(HomeSlider(slideImage: "https://www.sportspro.com/wp-content/uploads/2023/05/SP23_Commercial_Guide_Premier_League_1000x300px.png", isHD: false));
+  list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ24SQmkBeKaFEieAFZaVwzRCJj7qqcx1sRfw&s", isHD: true));
+  list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuIVsPbNEEI5Ac1GG332pqlCIAEXDC623xcA&s", isHD: false));
   return list;
 }
 
@@ -61,9 +61,11 @@ List<Movie> getHorizontalMovie() {
 }
 
  final List<Map<String, String>> featuredLeagues = [
-    {"name": "Premier League", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWgXiFJIHIQaQGzmMm__pL7kprtJso5VTP-A&s", "details": "Ongoing matches."},
-    {"name": "Champions League", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFL4V0YQSEwD76ZFCm9ET3ENPGLDE_09aymw&s", "details": "Top-tier teams competing."},
-    {"name": "Super League", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBxY9hXGPlbL0lp4RCDDnwKMErb8UzxNDpA&s", "details": "Battle of champions."},
+    {"name": "National Wrestling Alliance (NWA)", "image": "https://i.ytimg.com/vi/l9wbNMEzsu0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLA9GJqJEh1eBu-pwTjrKJ3ox1DH-A", "details": "Ongoing matches."},
+    {"name": "Bloodline Wrestling Alliance (BWA)", "image": "https://i.ytimg.com/vi/o_gkz2kKWGM/maxresdefault.jpg", "details": "Top-tier teams competing."},
+    {"name": "National Wrestling Circuit (NWC)", "image": "https://www.dawrestlingsite.com/media/images/feature_nwc1.jpg", "details": "Battle of champions."},
+    {"name": "Total Mayhem Wrestling (TMW)", "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNfiFlAfjscWW6Uvjj9A8y72jRkx1XhrbXLQPVlSoFjks0FQ0eAFUxBs_EBIIUa1RY2_U&usqp=CAU", "details": "Battle of champions."},
+  
   ];
 
   final List<Map<String, String>> topTeams = [
@@ -74,10 +76,10 @@ List<Movie> getHorizontalMovie() {
   ];
 
   final List<Map<String, String>> allLeagues = [
-    {"name": "League 1", "description": "Exciting matchups happening now."},
-    {"name": "League 2", "description": "Top teams battling it out."},
-    {"name": "League 3", "description": "Underdogs making a statement."},
-    {"name": "League 4", "description": "Close games and big moments."},
+    {"name": "Supremacy Wrestling League (SWL)", "description": "Exciting matchups happening now."},
+    {"name": "Inferno Wrestling Federation (IWF)", "description": "Top teams battling it out."},
+    {"name": "Steel Titans Wrestling (STW)", "description": "Underdogs making a statement."},
+    {"name": "BattleForge Wrestling League (BWL)", "description": "Close games and big moments."},
   ];
   
 List<Movie> getContinueMovies() {

@@ -6,9 +6,9 @@ const ic_logo_bottom = "images/muvi/icons/ic_logo_bottom.png";
 const ic_logo = "images/muvi/icons/ic_logo.png";
 const ic_muvi = "images/muvi/icons/ic_muvi.png";
 const ic_phone = "images/muvi/images/ic_phone.png";
-const ic_walk2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgb7cmvVuoNnbAWetgyrhN0f11vkywCIBjZA&s";
-const ic_walk_1 = "https://m.media-amazon.com/images/I/716RxcPD-gL.png";
-const ic_walk_3 = "https://football.socialfantasyleagues.com/assets/sfl-fantasy-football-app-screens-e64382d0.png";
+const ic_walk2 = "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F912158443%2F402356135547%2F1%2Foriginal.20241205-125419?crop=focalpoint&fit=crop&w=600&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.005&fp-y=0.005&s=2c52af04c32bb877f2f24d9355f4e9a5";
+const ic_walk_1 = "https://i.ytimg.com/vi/uYbksPtmEjk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAJF1gun27mUqsV0TIzSG0FWJpWqQ";
+const ic_walk_3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFDD5CfqiJofiqlj0s5pjtiQpyEctweswLIw&s";
 
 const ic_google = "images/muvi/icons/ic_google.png";
 const ic_search = "Icons_search";

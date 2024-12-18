@@ -3,69 +3,68 @@
 import 'package:flutter/material.dart';
 
 class JoinLeaguesPage extends StatelessWidget {
-  final List<Map<String, String>> leagues = [
-    {
-      "name": "Premier League",
-      "description": "England's Top Clubs",
-      "image":
-          "https://e0.365dm.com/24/07/2048x1152/skysports-premier-league-season_6629191.jpg?20241210105711"
-    },
-    {
-      "name": "La Liga",
-      "description": "Spanish Champions Battle",
-      "image":
-          "https://img.jakpost.net/c/2019/05/16/2019_05_16_72382_1557949331._large.jpg"
-    },
-    {
-      "name": "Serie A",
-      "description": "Italy's Best Teams Compete",
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJJjMwuE3_cv54RZAovzpyCJ70yIynYzAbRA&s"
-    },
-    {
-      "name": "Bundesliga",
-      "description": "German Elite Football",
-      "image":
-          "https://media.dfl.de/sites/3/2018/02/BL_Teaser_BL-Logo_Pitch_HD.jpg"
-    },
-    {
-      "name": "MLS",
-      "description": "Top US Soccer League",
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGbpuGD6NbeH6iejnRjtSoF3dzq4yVPOzVbg&s"
-    },
-    {
-      "name": "Ligue 1",
-      "description": "French Football Action",
-      "image":
-          "https://1000logos.net/wp-content/uploads/2019/01/French-Ligue-1-Logo-2020-1.png"
-    },
-    {
-      "name": "Eredivisie",
-      "description": "Dutch Football League",
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqUpda9WZY1XI99HfJGWMxrEDsn-aiWeeXsg&s"
-    },
-    {
-      "name": "Super Lig",
-      "description": "Turkey's Football Stars",
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99Jz9eh5zMBQpPqdWvSwzP0wxyY-q-1owMQ&s"
-    },
-    {
-      "name": "Championship",
-      "description": "UK Second Division Action",
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThUii0K7mAMEeeRTYdi20M_mnX_c-0xO9fMg&s"
-    },
-    {
-      "name": "J-League",
-      "description": "Japan's Elite League",
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmv8b9vY-eho8vMf-WPxqcZ67XDQYc4NSyeA&s"
-    },
-  ];
-
+ final List<Map<String, String>> wrestlingLeagues = [
+  {
+    "name": "WWE Raw",
+    "description": "World Wrestling Entertainment's flagship show.",
+    "image":
+        "https://media.tenor.com/maS2svZnO7wAAAAM/monday-night-raw-wwe.gif"
+  },
+  {
+    "name": "WWE SmackDown",
+    "description": "WWE's blue brand delivering prime action.",
+    "image":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoOiRB0LdMEfpw1VXa2686NqIss_QHUBlmnA&s"
+  },
+  {
+    "name": "AEW Dynamite",
+    "description": "All Elite Wrestling's premier weekly event.",
+    "image":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5c4ZyWc79D3Y3I9HLv27SqVVhj8ETy0QMipPP89DNiI5mZdonvzwH6qgEHNs_g2yB2o4&usqp=CAU"
+  },
+  {
+    "name": "Impact Wrestling",
+    "description": "Top stars and rivalries in Impact Wrestling.",
+    "image":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbkk7PGaaD3bzoNu5xG3l_DL7WofVxJX-ZDg&s"
+  },
+  {
+    "name": "NJPW Wrestle Kingdom",
+    "description": "New Japan Pro Wrestling's iconic event.",
+    "image":
+        "https://upload.wikimedia.org/wikipedia/en/2/20/Wrestle_Kingdom_17_in_Tokyo_Dome_poster.jpg"
+  },
+  {
+    "name": "NXT",
+    "description": "WWE's developmental brand with emerging stars.",
+    "image":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRdu0gkBVX-S4lDVZWKlyUK7HgECWSgWp-XA&s"
+  },
+  {
+    "name": "Ring of Honor",
+    "description": "Honor and intensity in professional wrestling.",
+    "image":
+        "https://i.ytimg.com/vi/5hMCdQjmTks/maxresdefault.jpg"
+  },
+  {
+    "name": "Lucha Underground",
+    "description": "High-flying action from Mexico's best.",
+    "image":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-AOzPi38h9hr-LcdgjISQFNusZKxgQi3hqg&s"
+  },
+  {
+    "name": "CMLL",
+    "description": "The Consejo Mundial de Lucha Libre's iconic battles.",
+    "image":
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqLW_gvUEScjEwVL3Pzg0apXyyRplRvhb3xQ&s"
+  },
+  {
+    "name": "AAA",
+    "description": "Lucha Libre AAA Worldwide featuring top stars.",
+    "image":
+        "https://cdn.vox-cdn.com/thumbor/sFt3PrVUZJfqtNvldgf0zzAkLDY=/0x166:1080x706/fit-in/1200x600/cdn.vox-cdn.com/uploads/chorus_asset/file/23044609/FFIpN8GXMAQwsME.jpg"
+  },
+];
 
 
   @override
@@ -75,13 +74,13 @@ class JoinLeaguesPage extends StatelessWidget {
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.58,
+          childAspectRatio: 0.48,
           crossAxisSpacing: 19,
           mainAxisSpacing: 16,
         ),
-        itemCount: leagues.length,
+        itemCount: wrestlingLeagues.length,
         itemBuilder: (context, index) {
-          final league = leagues[index];
+          final league = wrestlingLeagues[index];
           return GestureDetector(
             onTap: () {
               // Navigate to Details Page

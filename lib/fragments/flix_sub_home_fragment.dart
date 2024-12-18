@@ -1,13 +1,12 @@
 import 'package:fantasyapp/models/flix_response.dart';
 import 'package:fantasyapp/screens/flix_movie_detail_screen_2.dart';
 import 'package:fantasyapp/screens/flix_series_detail_screen.dart';
-import 'package:fantasyapp/screens/flix_view_all_movies_screen.dart';
+// import 'package:fantasyapp/screens/flix_view_all_movies_screen.dart';
 import 'package:fantasyapp/utils/flix_app_widgets.dart';
 import 'package:fantasyapp/utils/flix_data_generator.dart';
 import 'package:fantasyapp/utils/flix_slider_widget.dart';
 import 'package:fantasyapp/utils/resources/flix_colors.dart';
 import 'package:fantasyapp/utils/resources/flix_size.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -62,11 +61,7 @@ class HomeCategoryFragmentState extends State<HomeCategoryFragment> {
   @override
   Widget build(BuildContext context) {
     var slider = mSliderList.isNotEmpty ? HomeSliderWidget(mSliderList) : Container();
-    var madeForYouSlider = mMadeForYouList.isNotEmpty ? VerticalSliderWidget(mMadeForYouList) : Container();
-    var popularMovieList = mMovieList.isNotEmpty ? ItemHorizontalList(mMovieList, isHorizontal: false) : Container();
-    var trendingMovieList = mTrendingMuviList.isNotEmpty ? ItemHorizontalList(mTrendingMuviList, isHorizontal: false) : Container();
-    var newCinemaList = mCinemaMovieList.isNotEmpty ? ItemHorizontalList(mCinemaMovieList, isHorizontal: true) : Container();
-    var continueWatchingList = mcontinueList.isNotEmpty ? ItemProgressHorizontalList(mcontinueList) : Container();
+    
     return Scaffold(
       backgroundColor: muvi_appBackground,
       body: Stack(
