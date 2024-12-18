@@ -6,10 +6,15 @@ import 'package:nb_utils/nb_utils.dart';
 
 List<HomeSlider> getSliders() {
   List<HomeSlider> list = [];
+  list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFoeEEH9Gy6VxFN2fbqc9A_8l9dJsYy5g8Q&s", isHD: false));
+
+  list.add(HomeSlider(slideImage: "https://i.ibb.co/XJ9j3Fx/DALL-E-2024-12-18-12-51-54-A-vibrant-and-dynamic-illustration-of-a-fictional-NJPW-New-Japan-Pro-Wres.png", isHD: false));
+  list.add(HomeSlider(slideImage: "https://i.ibb.co/FwhP64G/DALL-E-2024-12-18-12-51-21-A-vibrant-and-dynamic-illustration-of-a-fictional-AEW-wrestling-league-fe.png", isHD: false));
+
+
   list.add(HomeSlider(slideImage: "https://www.mykhel.com/common_dynamic/images/common/pro-wrestling-league.1627678834.jpg", isHD: true));
 
   list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ24SQmkBeKaFEieAFZaVwzRCJj7qqcx1sRfw&s", isHD: true));
-  list.add(HomeSlider(slideImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuIVsPbNEEI5Ac1GG332pqlCIAEXDC623xcA&s", isHD: false));
   return list;
 }
 

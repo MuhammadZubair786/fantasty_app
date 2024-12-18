@@ -4,6 +4,29 @@ import 'package:flutter/material.dart';
 
 class JoinLeaguesPage extends StatelessWidget {
  final List<Map<String, String>> wrestlingLeagues = [
+
+  {
+    "name": "WWE Raw",
+    "description": "World Wrestling Entertainment's flagship show.",
+    "image":
+        "https://media.tenor.com/maS2svZnO7wAAAAM/monday-night-raw-wwe.gif"
+  },
+  {
+    "name": "AEW League",
+    "description": "A groundbreaking wrestling league featuring elite athletes.",
+    "image": "https://i.ibb.co/FwhP64G/DALL-E-2024-12-18-12-51-21-A-vibrant-and-dynamic-illustration-of-a-fictional-AEW-wrestling-league-fe.png"
+  },
+  {
+    "name": "NJPW League",
+    "description": "New Japan Pro-Wrestling's premier league.",
+    "image": "https://i.ibb.co/XJ9j3Fx/DALL-E-2024-12-18-12-51-54-A-vibrant-and-dynamic-illustration-of-a-fictional-NJPW-New-Japan-Pro-Wres.png"
+  },
+  {
+    "name": "TNA Impact",
+    "description": "Total Nonstop Action Wrestling (TNA) delivers adrenaline-pumping.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM7GPe8eVGL81Wj7BCHASPHv7dwMD42MgTyQ&s"
+  },
+
   {
     "name": "WWE Raw",
     "description": "World Wrestling Entertainment's flagship show.",
