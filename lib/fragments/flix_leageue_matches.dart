@@ -1,3 +1,6 @@
+import 'package:fantasyapp/utils/flix_constants.dart';
+import 'package:fantasyapp/utils/resources/flix_colors.dart';
+import 'package:fantasyapp/utils/resources/flix_size.dart';
 import 'package:flutter/material.dart';
 
 class Matchup {
@@ -38,16 +41,56 @@ List<Matchup> matchups = [
 class ActiveMatchupsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: ListView.builder(
-          itemCount: matchups.length,
-          itemBuilder: (context, index) {
-            final matchup = matchups[index];
-            return MatchupCard(matchup: matchup);
-          },
-        ),
-     
+    return  SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+           Container(
+            height: 70,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Stack(
+                children: [
+                  Positioned(
+                    bottom: 5, // Increase this value to add space between text and underline
+                    child: Container(
+                      width:
+                          160, // Adjust width as per the text length or set it dynamically
+                      height: 2.0, // Thickness of the underline
+                      color: muvi_colorPrimary, // Underline color
+                    ),
+                  ),
+                  Text(
+                    "Active Match Up",
+                    textAlign: TextAlign.justify,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: ts_extra_normal,
+                      fontFamily: font_bold,
+                      height: 2,
+                      color: muvi_textColorPrimary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                itemCount: matchups.length,
+                itemBuilder: (context, index) {
+                  final matchup = matchups[index];
+                  return MatchupCard(matchup: matchup);
+                },
+              ),
+           
+          ),
+        ],
+      ),
     );
   }
 }

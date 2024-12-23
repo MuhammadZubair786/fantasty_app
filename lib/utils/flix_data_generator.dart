@@ -81,10 +81,12 @@ List<Movie> getHorizontalMovie() {
   ];
 
   final List<Map<String, String>> allLeagues = [
-    {"name": "Supremacy Wrestling League (SWL)", "description": "Exciting matchups happening now."},
-    {"name": "Inferno Wrestling Federation (IWF)", "description": "Top teams battling it out."},
-    {"name": "Steel Titans Wrestling (STW)", "description": "Underdogs making a statement."},
-    {"name": "BattleForge Wrestling League (BWL)", "description": "Close games and big moments."},
+    {"name": "World Wrestling Entertainment's", "description": "Exciting matchups happening now."},
+    {"name": "AEW League", "description": "Top teams battling it out."},
+    {"name": "New Japan Pro-Wrestling's", "description": "Underdogs making a statement."},
+    {"name": "World Wrestling Entertainment's", "description": "Underdogs making a statement."},
+    {"name": "All Elite Wrestling's", "description": "Underdogs making a statement."},
+   
   ];
   
 List<Movie> getContinueMovies() {

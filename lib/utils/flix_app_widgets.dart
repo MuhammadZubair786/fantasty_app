@@ -108,7 +108,7 @@ class MoreLessTextState extends State<MoreLessText> {
 }
 
 Widget headingText(BuildContext context, var titleText) {
-  return text(titleText, fontSize: ts_extra_normal, fontFamily: font_bold, textColor: muvi_textColorPrimary);
+  return text(titleText, fontSize: ts_extra_normal, fontFamily: font_bold, textColor: muvi_textColorPrimary,aDecoration: TextDecoration.underline);
 }
 
 Widget headingWidViewAll(BuildContext context, var titleText, callback) {
