@@ -322,15 +322,15 @@ class _SearchFragmentState extends State<SearchFragment> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: Image.network(
-                                          wrestler['image'],
-                                          height: 150,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+          // ClipRRect(
+          //                               borderRadius: BorderRadius.circular(12),
+          //                               child: Image.network(
+          //                                 wrestler['image'],
+          //                                 height: 150,
+          //                                 width: double.infinity,
+          //                                 fit: BoxFit.cover,
+          //                               ),
+          //                             ),
           Text(
             wrestler['name'],
             style: TextStyle(

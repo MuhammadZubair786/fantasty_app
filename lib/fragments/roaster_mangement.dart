@@ -179,15 +179,15 @@ class _RosterManagementScreenState extends State<RosterManagementScreen> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: Image.network(
-                                          wrestler['image'],
-                                          height: 150,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                                      // ClipRRect(
+                                      //   borderRadius: BorderRadius.circular(12),
+                                      //   child: Image.network(
+                                      //     wrestler['image'],
+                                      //     height: 150,
+                                      //     width: double.infinity,
+                                      //     fit: BoxFit.cover,
+                                      //   ),
+                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Column(
@@ -269,15 +269,15 @@ class _RosterManagementScreenState extends State<RosterManagementScreen> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: Image.network(
-                                          wrestler['image'],
-                                          height: 150,
-                                          width: double.infinity,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                                      // ClipRRect(
+                                      //   borderRadius: BorderRadius.circular(12),
+                                      //   child: Image.network(
+                                      //     wrestler['image'],
+                                      //     height: 150,
+                                      //     width: double.infinity,
+                                      //     fit: BoxFit.cover,
+                                      //   ),
+                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Column(
