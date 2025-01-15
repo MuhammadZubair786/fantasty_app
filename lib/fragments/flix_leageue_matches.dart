@@ -1,58 +1,63 @@
+import 'dart:math';
+
+import 'package:fantasyapp/Controllers/firebase_data.dart';
 import 'package:fantasyapp/utils/flix_constants.dart';
 import 'package:fantasyapp/utils/resources/flix_colors.dart';
 import 'package:fantasyapp/utils/resources/flix_size.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 
-class Matchup {
-  final String team1;
-  final String team2;
-  final String summary;
-  final String imageUrl;
+import '../utils/flix_app_widgets.dart';
 
-  Matchup({
-    required this.team1,
-    required this.team2,
-    required this.summary,
-    required this.imageUrl,
-  });
+class ActiveMatchupsPage extends StatefulWidget {
+  @override
+  State<ActiveMatchupsPage> createState() => _ActiveMatchupsPageState();
 }
 
-List<Matchup> matchups = [
-  Matchup(
-    team1: "Lions",
-    team2: "Tigers",
-    summary: "A fierce battle between two rivals!",
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeQcn7Sxo1TkPgcGGPs60e33ux-ewe5vtUOg&s",
-  ),
-  Matchup(
-    team1: "Sharks",
-    team2: "Eagles",
-    summary: "Eagles are leading the game with a narrow margin.",
-    imageUrl: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/e6025648-55c5-4a75-9b23-3f8924e5ac00/dyjrqd-3d4179cc-3ce5-44fa-acd9-c22d4e80539b.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2U2MDI1NjQ4LTU1YzUtNGE3NS05YjIzLTNmODkyNGU1YWMwMFwvZHlqcnFkLTNkNDE3OWNjLTNjZTUtNDRmYS1hY2Q5LWMyMmQ0ZTgwNTM5Yi5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.ZZR4G7bsraLJnohj91YvQeGmlXeemzleAk6IP4N1Tik",
-  ),
-  Matchup(
-    team1: "Warriors",
-    team2: "Panthers",
-    summary: "Panthers making a surprising comeback!",
-    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsRN7S-F9bJVQt6yozd0yg1Zpt8e1j0JiAYg&s",
-  ),
-];
+class _ActiveMatchupsPageState extends State<ActiveMatchupsPage> {
+  bool isLoading = false;
 
-class ActiveMatchupsPage extends StatelessWidget {
+  var matches = [];
+
+  showLoading(bool show) {
+    setState(
+      () {
+        isLoading = show;
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    showLoading(true);
+
+    await FirestoreService()
+        .getAllMatches()
+        .then((value) => {matches.addAll(value)});
+    showLoading(false);
+    print(matches);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  SingleChildScrollView(
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Container(
+          Container(
             height: 70,
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Stack(
                 children: [
                   Positioned(
-                    bottom: 5, // Increase this value to add space between text and underline
+                    bottom:
+                        5, // Increase this value to add space between text and underline
                     child: Container(
                       width:
                           160, // Adjust width as per the text length or set it dynamically
@@ -76,18 +81,19 @@ class ActiveMatchupsPage extends StatelessWidget {
               ),
             ),
           ),
+            Center(child: loadingWidgetMaker().visible(isLoading)),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                itemCount: matchups.length,
-                itemBuilder: (context, index) {
-                  final matchup = matchups[index];
-                  return MatchupCard(matchup: matchup);
-                },
-              ),
-           
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemCount: matches.length,
+              itemBuilder: (context, index) {
+                final matchup = matches[index];
+                return MatchupCard(matchup: matchup);
+              },
+            ),
           ),
         ],
       ),
@@ -95,10 +101,100 @@ class ActiveMatchupsPage extends StatelessWidget {
   }
 }
 
-class MatchupCard extends StatelessWidget {
-  final Matchup matchup;
+class MatchupCard extends StatefulWidget {
+  var matchup;
 
   MatchupCard({required this.matchup});
+
+  @override
+  State<MatchupCard> createState() => _MatchupCardState();
+}
+
+class _MatchupCardState extends State<MatchupCard> {
+  getRandom() {
+    Random random = Random();
+
+    // Generate a random number between 0 and 2 (inclusive)
+    int randomNumber = random.nextInt(4);
+    return randomNumber;
+  }
+
+  var ImagesList =[
+    "https://www.shutterstock.com/shutterstock/videos/3480597989/thumb/12.jpg?ip=x480",
+    "https://as2.ftcdn.net/v2/jpg/02/76/09/45/500_F_276094500_uLvhdc025abo5dV1hzKAq4zmL3N2ECNz.jpg",
+    "https://t4.ftcdn.net/jpg/03/23/27/39/360_F_323273934_LvPmP1epG8uJMgpZKJTGQeQ16OIDEbTQ.jpg",
+    "https://t4.ftcdn.net/jpg/02/56/64/01/360_F_256640121_eMHCNxiKLfbZI2eSbV8afJQgfsHXQogv.jpg"
+  ];
+
+  void showPlayerDialog(BuildContext context,data) async {
+    final playerData = data;
+    final team1Players = playerData['team1'] ?? [];
+    final team2Players = playerData['team2'] ?? [];
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Teams Players'),
+          content: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Table(
+                    border: TableBorder.all(
+                      color: Colors.orange,
+                    ),
+                    columnWidths:const {
+                      0:  FixedColumnWidth(100), // Team 1 column width
+                      1: FixedColumnWidth(100), // Team 2 column width
+                    },
+                    children: [
+                      TableRow(
+                        children: [
+                          Center(child: Text('Team 1', style: TextStyle(fontWeight: FontWeight.bold))),
+                          Center(child: Text('Team 2', style: TextStyle(fontWeight: FontWeight.bold))),
+                        ],
+                      ),
+                      // Use the maximum length of the two teams
+                      for (int i = 0; i < (team1Players.length > team2Players.length ? team1Players.length : team2Players.length); i++)
+                        TableRow(
+                          children: [
+                            Center(child: Text(i < team1Players.length ? team1Players[i]["name"] : '')),
+                            Center(child: Text(i < team2Players.length ? team2Players[i]["name"] : '')),
+                          ],
+                        ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(playerData["matchDetails"],   style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +212,7 @@ class MatchupCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
             child: Image.network(
-              matchup.imageUrl,
+            ImagesList[getRandom()],
               height: 180,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -132,7 +228,7 @@ class MatchupCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${matchup.team1}",
+                      "${widget.matchup["team1Name"]}",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -148,7 +244,7 @@ class MatchupCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "${matchup.team2}",
+                      "${widget.matchup["team2Name"]}",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -159,12 +255,24 @@ class MatchupCard extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 // Matchup Summary
-                Text(
-                  matchup.summary,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[400],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.matchup["team1Score"].toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                    Text(
+                      widget.matchup["team2Score"].toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -176,6 +284,7 @@ class MatchupCard extends StatelessWidget {
               padding: const EdgeInsets.only(right: 16.0, bottom: 16.0),
               child: ElevatedButton(
                 onPressed: () {
+                  showPlayerDialog(context,  widget.matchup);
                   // Action for "View Details"
                 },
                 style: ElevatedButton.styleFrom(
@@ -200,5 +309,3 @@ class MatchupCard extends StatelessWidget {
     );
   }
 }
-
-

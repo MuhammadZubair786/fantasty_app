@@ -617,7 +617,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> with Ti
     switch (widget.type) {
       case AppBottomNavigationBarType.fixed:
         colorTween = ColorTween(
-          begin: widget.unselectedItemColor ?? themeData.textTheme.caption!.color,
+          begin: widget.unselectedItemColor ?? themeData.textTheme.bodySmall!.color,
           end: widget.selectedItemColor ?? widget.fixedColor ?? themeColor,
         );
         break;

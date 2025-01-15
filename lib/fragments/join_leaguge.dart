@@ -1,199 +1,158 @@
 // ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, unused_field
 
+import 'package:fantasyapp/Controllers/firebase_data.dart';
+import 'package:fantasyapp/utils/flix_app_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 
-class JoinLeaguesPage extends StatelessWidget {
- final List<Map<String, String>> wrestlingLeagues = [
+class JoinLeaguesPage extends StatefulWidget {
+  @override
+  State<JoinLeaguesPage> createState() => _JoinLeaguesPageState();
+}
 
-  {
-    "name": "WWE Raw",
-    "description": "World Wrestling Entertainment's flagship show.",
-    "image":
-        "https://media.tenor.com/maS2svZnO7wAAAAM/monday-night-raw-wwe.gif"
-  },
-  {
-    "name": "AEW League",
-    "description": "A groundbreaking wrestling league featuring elite athletes.",
-    "image": "https://i.ibb.co/FwhP64G/DALL-E-2024-12-18-12-51-21-A-vibrant-and-dynamic-illustration-of-a-fictional-AEW-wrestling-league-fe.png"
-  },
-  {
-    "name": "NJPW League",
-    "description": "New Japan Pro-Wrestling's premier league.",
-    "image": "https://i.ibb.co/XJ9j3Fx/DALL-E-2024-12-18-12-51-54-A-vibrant-and-dynamic-illustration-of-a-fictional-NJPW-New-Japan-Pro-Wres.png"
-  },
-  {
-    "name": "TNA Impact",
-    "description": "Total Nonstop Action Wrestling (TNA) delivers adrenaline-pumping.",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM7GPe8eVGL81Wj7BCHASPHv7dwMD42MgTyQ&s"
-  },
+class _JoinLeaguesPageState extends State<JoinLeaguesPage> {
+  bool isLoading = false;
 
-  {
-    "name": "WWE Raw",
-    "description": "World Wrestling Entertainment's flagship show.",
-    "image":
-        "https://media.tenor.com/maS2svZnO7wAAAAM/monday-night-raw-wwe.gif"
-  },
-  {
-    "name": "WWE SmackDown",
-    "description": "WWE's blue brand delivering prime action.",
-    "image":
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoOiRB0LdMEfpw1VXa2686NqIss_QHUBlmnA&s"
-  },
-  {
-    "name": "AEW Dynamite",
-    "description": "All Elite Wrestling's premier weekly event.",
-    "image":
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5c4ZyWc79D3Y3I9HLv27SqVVhj8ETy0QMipPP89DNiI5mZdonvzwH6qgEHNs_g2yB2o4&usqp=CAU"
-  },
-  {
-    "name": "Impact Wrestling",
-    "description": "Top stars and rivalries in Impact Wrestling.",
-    "image":
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbkk7PGaaD3bzoNu5xG3l_DL7WofVxJX-ZDg&s"
-  },
-  {
-    "name": "NJPW Wrestle Kingdom",
-    "description": "New Japan Pro Wrestling's iconic event.",
-    "image":
-        "https://upload.wikimedia.org/wikipedia/en/2/20/Wrestle_Kingdom_17_in_Tokyo_Dome_poster.jpg"
-  },
-  {
-    "name": "NXT",
-    "description": "WWE's developmental brand with emerging stars.",
-    "image":
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRdu0gkBVX-S4lDVZWKlyUK7HgECWSgWp-XA&s"
-  },
-  {
-    "name": "Ring of Honor",
-    "description": "Honor and intensity in professional wrestling.",
-    "image":
-        "https://i.ytimg.com/vi/5hMCdQjmTks/maxresdefault.jpg"
-  },
-  {
-    "name": "Lucha Underground",
-    "description": "High-flying action from Mexico's best.",
-    "image":
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-AOzPi38h9hr-LcdgjISQFNusZKxgQi3hqg&s"
-  },
-  {
-    "name": "CMLL",
-    "description": "The Consejo Mundial de Lucha Libre's iconic battles.",
-    "image":
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqLW_gvUEScjEwVL3Pzg0apXyyRplRvhb3xQ&s"
-  },
-  {
-    "name": "AAA",
-    "description": "Lucha Libre AAA Worldwide featuring top stars.",
-    "image":
-        "https://cdn.vox-cdn.com/thumbor/sFt3PrVUZJfqtNvldgf0zzAkLDY=/0x166:1080x706/fit-in/1200x600/cdn.vox-cdn.com/uploads/chorus_asset/file/23044609/FFIpN8GXMAQwsME.jpg"
-  },
-];
+  var wrestling = [];
+  final List<Map<String, String>> wrestlingLeagues = [];
 
+  showLoading(bool show) {
+    setState(
+      () {
+        isLoading = show;
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    showLoading(true);
+
+    await FirestoreService()
+        .getStandings()
+        .then((value) => {wrestling.addAll(value)});
+    showLoading(false);
+    print(wrestling);
+    setState(() {
+      
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.48,
-          crossAxisSpacing: 19,
-          mainAxisSpacing: 16,
-        ),
-        itemCount: wrestlingLeagues.length,
-        itemBuilder: (context, index) {
-          final league = wrestlingLeagues[index];
-          return GestureDetector(
-            onTap: () {
-              // Navigate to Details Page
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => LeagueDetailsPage(league: league)),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey[900],
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black26,
-                    offset: Offset(0, 4),
-                    blurRadius: 6,
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16)),
-                    child: Image.network(
-                      league['image']!,
-                      height: 120,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      league['name']!,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+      child: Column(
+        children: [
+           isLoading ?   Center(child: loadingWidgetMaker().visible(isLoading)):
+          GridView.builder(
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.48,
+              crossAxisSpacing: 19,
+              mainAxisSpacing: 16,
+            ),
+            itemCount: wrestling.length,
+            itemBuilder: (context, index) {
+              final league = wrestling[index];
+              return GestureDetector(
+                onTap: () {
+                  // Navigate to Details Page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => LeagueDetailsPage(league: league)),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[900],
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(0, 4),
+                        blurRadius: 6,
                       ),
-                    ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                      league['description']!,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFFE901C),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16),
+                            topRight: Radius.circular(16)),
+                        child: Image.network(
+                          league['imageUrl']!,
+                          height: 120,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
                         ),
-                        onPressed: () {
-                          // Navigate to Details Page
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    LeagueDetailsPage(league: league)),
-                          );
-                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Join",
+                          league['leagueName']!,
                           style: TextStyle(
-                            color: Colors.black,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          league['description']!,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFFFE901C),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                            ),
+                            onPressed: () {
+                              // Navigate to Details Page
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        LeagueDetailsPage(league: league)),
+                              );
+                            },
+                            child: Text(
+                              "Join",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -201,12 +160,11 @@ class JoinLeaguesPage extends StatelessWidget {
 
 // League Details Page
 class LeagueDetailsPage extends StatelessWidget {
-  final Map<String, String> league;
+  final league;
 
   const LeagueDetailsPage({Key? key, required this.league}) : super(key: key);
 
-  
-   void _showJoinDialog(BuildContext context, String leagueName) {
+  void _showJoinDialog(BuildContext context, String leagueName) {
     showDialog(
       context: context,
       builder: (context) {
@@ -215,14 +173,13 @@ class LeagueDetailsPage extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text(
-          league["name"]!,
+          league["leagueName"]!,
           style:
               TextStyle(color: Color(0xFFFE901C), fontWeight: FontWeight.bold),
         ),
@@ -238,7 +195,7 @@ class LeagueDetailsPage extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  league['image']!,
+                  league['imageUrl']!,
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.cover,
@@ -247,7 +204,7 @@ class LeagueDetailsPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              league['name']!,
+              league['leagueName']!,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 28,
@@ -261,17 +218,27 @@ class LeagueDetailsPage extends StatelessWidget {
             Divider(color: Colors.grey[700]),
             SizedBox(height: 8),
             Text(
-              "League Highlights",
+              "Teams",
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFFE901C)),
             ),
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: league["teams"],
+              itemBuilder: (context,index){
+                return   Text(
+              league["teams"][index],
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFFE901C)),
+            );
+
+              }),
             SizedBox(height: 8),
-            Text(
-              "🔸 Top teams competing for the title.\n🔸 Exciting match schedules.\n🔸 Over 20 matches this season.\n🔸 Watch live or join the community!",
-              style: TextStyle(fontSize: 14, color: Colors.grey[400]),
-            ),
+          
             Spacer(),
             SizedBox(height: 20),
             ElevatedButton(
@@ -282,7 +249,7 @@ class LeagueDetailsPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
               ),
               onPressed: () {
-              _showJoinDialog(context, league['name']!);
+                _showJoinDialog(context, league['leagueName']!);
               },
               child: Text(
                 "Join League",
@@ -296,6 +263,7 @@ class LeagueDetailsPage extends StatelessWidget {
     );
   }
 }
+
 // Join League Form Dialog
 class JoinLeagueForm extends StatefulWidget {
   final String leagueName;
@@ -324,7 +292,10 @@ class _JoinLeagueFormState extends State<JoinLeagueForm> {
           children: [
             Text(
               "Join ${widget.leagueName}",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             SizedBox(height: 10),
             Form(
@@ -345,7 +316,8 @@ class _JoinLeagueFormState extends State<JoinLeagueForm> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    validator: (value) => value!.isEmpty ? "Enter your name" : null,
+                    validator: (value) =>
+                        value!.isEmpty ? "Enter your name" : null,
                     onSaved: (value) => _name = value!,
                   ),
                   SizedBox(height: 10),
@@ -363,7 +335,8 @@ class _JoinLeagueFormState extends State<JoinLeagueForm> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    validator: (value) => !value!.contains("@") ? "Enter a valid email" : null,
+                    validator: (value) =>
+                        !value!.contains("@") ? "Enter a valid email" : null,
                     onSaved: (value) => _email = value!,
                   ),
                 ],
@@ -374,7 +347,8 @@ class _JoinLeagueFormState extends State<JoinLeagueForm> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFFE901C),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                 ),
                 onPressed: () {
@@ -382,13 +356,16 @@ class _JoinLeagueFormState extends State<JoinLeagueForm> {
                     _formKey.currentState!.save();
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Successfully joined ${widget.leagueName}!")),
+                      SnackBar(
+                          content: Text(
+                              "Successfully joined ${widget.leagueName}!")),
                     );
                   }
                 },
                 child: Text(
                   "Join Now",
-                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

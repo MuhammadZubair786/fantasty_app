@@ -4,6 +4,7 @@ import 'package:fantasyapp/store/AppStore.dart';
 import 'package:fantasyapp/utils/AppTheme.dart';
 import 'package:fantasyapp/utils/flix_constants.dart';
 import 'package:fantasyapp/utils/flix_data_generator.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -13,6 +14,7 @@ AppStore appStore = AppStore();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp();
 
   await initialize(aLocaleLanguageList: languageList());
 

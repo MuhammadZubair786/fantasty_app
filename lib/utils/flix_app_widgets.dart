@@ -130,9 +130,10 @@ Widget headingWidViewAll(BuildContext context, var titleText, callback) {
 
 AppBar appBarLayout(context, text, {darkBackground = true}) {
   return AppBar(
+    automaticallyImplyLeading: false,
     elevation: 0,
     iconTheme: IconThemeData(color: muvi_colorPrimary),
-    title: toolBarTitle(context, text),
+    title: Center(child: toolBarTitle(context, text)),
     backgroundColor: darkBackground ? muvi_navigationBackground : Colors.transparent,
   );
 }
@@ -151,7 +152,6 @@ Widget button(BuildContext context, buttonText, VoidCallback callback) {
   return MaterialButton(
     textColor: muvi_colorPrimary,
     color: muvi_colorPrimary,
-    // splashColor: Colors.grey.withOpacity(0.2),
     padding: EdgeInsets.only(top: 12, bottom: 12),
     child: text(buttonText, fontSize: ts_normal, fontFamily: font_medium, textColor: Colors.black),
     shape: RoundedRectangleBorder(
@@ -161,6 +161,21 @@ Widget button(BuildContext context, buttonText, VoidCallback callback) {
     onPressed: callback,
   );
 }
+
+Widget loadingButton(BuildContext context) {
+  return MaterialButton(
+    textColor: muvi_colorPrimary,
+    color: muvi_colorPrimary,
+    padding: EdgeInsets.only(top: 12, bottom: 12),
+    child: CircularProgressIndicator(color: Colors.white) ,
+    shape: RoundedRectangleBorder(
+      borderRadius: new BorderRadius.circular(spacing_control),
+      side: BorderSide(color: muvi_colorPrimary),
+    ),
+    onPressed: (){},
+  );
+}
+
 
 Widget iconButton(context, buttonText, icon, callBack, {backgroundColor, borderColor, buttonTextColor, iconColor, padding = 12.0}) {
   return MaterialButton(

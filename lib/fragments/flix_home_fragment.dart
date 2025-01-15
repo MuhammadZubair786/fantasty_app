@@ -25,6 +25,8 @@ class HomeFragmentState extends State<HomeFragment> {
     changeStatusColor(muvi_appBackground);
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
