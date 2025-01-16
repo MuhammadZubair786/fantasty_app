@@ -83,4 +83,26 @@ Future<List<Map<String, dynamic>>> getStandings() async {
 
     return standings;
   }
+
+
+  Future<dynamic> getCurrentDraft() async {
+  QuerySnapshot snapshot = await _firestore
+      .collection('drafts') // Firestore collection
+      .orderBy('startTime', descending: true) // Sort by startTime to get the latest
+      .get();
+
+  // Filter the documents where isActive is true
+  List<Map<String, dynamic>> activeDrafts = snapshot.docs
+      .map((doc) => doc.data() as Map<String, dynamic>)
+      .where((data) => data['isActive'] == true)
+      .toList();
+
+  // Check if any drafts are active
+  if (activeDrafts.isNotEmpty) {
+    return activeDrafts; // Return the list of active drafts
+  } else {
+    return "No current draft"; // Return a fallback message
+  }
+}
+
 }

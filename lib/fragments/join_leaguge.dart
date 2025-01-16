@@ -220,20 +220,20 @@ class LeagueDetailsPage extends StatelessWidget {
             Text(
               "Teams",
               style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFFE901C)),
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: league["teams"],
+              itemCount: league["teams"].length,
               itemBuilder: (context,index){
                 return   Text(
-              league["teams"][index],
+              league["teams"][index].toString().toUpperCase(),
               style: TextStyle(
-                  fontSize: 12,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFFFE901C)),
+                  color: Colors.white),
             );
 
               }),

@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:async';
+import 'dart:developer';
+import 'package:fantasyapp/Controllers/firebase_data.dart';
 import 'package:fantasyapp/utils/flix_constants.dart';
 import 'package:fantasyapp/utils/resources/flix_colors.dart';
 import 'package:fantasyapp/utils/resources/flix_size.dart';
@@ -13,100 +15,15 @@ class SearchFragment extends StatefulWidget {
 }
 
 class _SearchFragmentState extends State<SearchFragment> {
-  final List<Map<String, dynamic>> wrestlers = [
-    {
-      "name": "John Cena",
-      "wins": 10,
-      "losses": 2,
-      "rank": 1,
-      "points": 120,
-      "image":
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQS18Qb2pbQV7dSvv0vjRrUGgNJ1VKshQi9A&s",
-      "isDrafted": false,
-    },
-    {
-      "name": "The Rock",
-      "wins": 8,
-      "losses": 4,
-      "rank": 2,
-      "points": 110,
-      "image": "https://cdn-icons-png.flaticon.com/512/6173/6173929.png",
-      "isDrafted": false,
-    },
-    {
-      "name": "Roman Reigns",
-      "wins": 11,
-      "losses": 1,
-      "rank": 3,
-      "points": 125,
-      "image": "https://img.freepik.com/premium-vector/wrestling-black-white-isolated-icon-vector-illustration_801978-15254.jpg",
-      "isDrafted": false,
-    },
-      {
-      "name": "Brock Lesnar",
-      "wins": 9,
-      "losses": 3,
-      "rank": 4,
-      "points": 115,
-      "image": "https://img.freepik.com/free-vector/wrestler-with-mask-cartoon-vector-icon-illustration-people-sport-icon-isolated-flat-vector_138676-13346.jpg",
-      "isDrafted": false,
-    },
-    {
-      "name": "Seth Rollins",
-      "wins": 7,
-      "losses": 5,
-      "rank": 5,
-      "points": 100,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7MneHbHDUf9hJlnbQ7V1zNoLu9J0J7umopWPM5ZZnNzYMl_qg8nXyoLyy-TURJVsA0LU&usqp=CAU",
-      "isDrafted": false,
-    },
-    {
-      "name": "AJ Styles",
-      "wins": 6,
-      "losses": 6,
-      "rank": 6,
-      "points": 95,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtUqAVWFXYQNrquOijfEiXS2ISBbwFbRGDO-ye-aQFs0jOUWmVfVrlaqcKulnxXaMRS8&usqp=CAU",
-      "isDrafted": false,
-    },
-    {
-      "name": "Edge",
-      "wins": 12,
-      "losses": 0,
-      "rank": 7,
-      "points": 130,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA3risk4gu0Efk1n8gdHYXevvIUgis0GbcwBGG83Ev3iakAy5OKM2JyVaek3Hjg6zo1Ig&usqp=CAU",
-      "isDrafted": false,
-    },
-    {
-      "name": "Kofi Kingston",
-      "wins": 5,
-      "losses": 7,
-      "rank": 8,
-      "points": 90,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbLNDJw6JTwQFV75iEfUhN025mewT9aQi6Kg&s",
-      "isDrafted": true,
-    },
-    {
-      "name": "Finn Balor",
-      "wins": 9,
-      "losses": 4,
-      "rank": 9,
-      "points": 105,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9lahgNnsBLlZXmglm1uT7w6ZTN_Odsp3LSoefnrBcbt2ZqI8zfokfcVjQw6hWSgRlDM8&usqp=CAU",
-      "isDrafted": false,
-    },
-    {
-      "name": "Randy Orton",
-      "wins": 10,
-      "losses": 5,
-      "rank": 10,
-      "points": 110,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQurb9jE8BucnoFFG7XHV1bZrCEHceOnFl5tw1ULt3F7wOa3X8WxnxMit5LvjSXod5DfY8&usqp=CAU",
-      "isDrafted": true,
-    },
+   List wrestlers = [
+  
     // Add more wrestlers as needed
   ];
+
+  // void initState(){
+  //   super.initState();
+  //   getData();
+  // }
 
   void _toggleDraftStatus(int index) {
     if(_remainingTime==0){
@@ -134,7 +51,32 @@ class _SearchFragmentState extends State<SearchFragment> {
   void initState() {
     super.initState();
     _startDraftTimer();
+    getData();
   }
+  
+
+    getData() async {
+    var listData =[];
+    var res = await FirestoreService().getCurrentDraft();
+    log(res.toString());
+    listData.addAll(res);
+    wrestlers = listData;
+    for(var i=0;i<res[0]["members"].length;i++){
+      filterData(res[0],res[0]["members"][i]);
+    }
+  
+    
+  }
+
+  filterData(data,member ){
+    print(member["vote"]);
+    if(member["vote"]){
+
+    }
+
+
+  }
+
 
   void _startDraftTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
