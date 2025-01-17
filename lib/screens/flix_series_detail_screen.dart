@@ -434,8 +434,8 @@ class SeriesDetailScreenState extends State<SeriesDetailScreen> with WidgetsBind
                     ViewSeriesEpisodeScreen(title: "Episodes").launch(context);
                   }).paddingAll(spacing_standard_new),
                   episodesList,
-                  headingWidViewAll(context, "Flix Originals Action", () {
-                    ViewAllMovieScreen(title: "Flix Originals Action").launch(context);
+                  headingWidViewAll(context, "FantasyOriginals Action", () {
+                    ViewAllMovieScreen(title: "FantasyOriginals Action").launch(context);
                   }).paddingOnly(
                     left: spacing_standard_new,
                     right: spacing_standard_new,

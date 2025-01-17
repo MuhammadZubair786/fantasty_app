@@ -194,8 +194,8 @@ class MovieDetailScreenState extends State<MovieDetailScreen> with WidgetsBindin
                 bottom: spacing_standard_new,
               ),
               moreMovieList,
-              headingWidViewAll(context, "Flix Originals Action", () {
-                ViewAllMovieScreen(title: "Flix Originals Action").launch(context);
+              headingWidViewAll(context, "FantasyOriginals Action", () {
+                ViewAllMovieScreen(title: "FantasyOriginals Action").launch(context);
               }).paddingOnly(
                 left: spacing_standard_new,
                 right: spacing_standard_new,

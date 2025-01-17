@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     return Observer(
       builder: (_) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flix App${!isMobile ? ' ${platformName()}' : ''}',
+        title: 'FantasyApp${!isMobile ? ' ${platformName()}' : ''}',
         home: MuviSplashScreen(),
         // theme: !appStore.isDarkModeOn ? AppThemeData.lightTheme : AppThemeData.lightTheme,
         navigatorKey: navigatorKey,

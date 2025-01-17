@@ -7,14 +7,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class TermsConditionsScreen extends StatefulWidget {
+class PrivacyPolicyScreen extends StatefulWidget {
   static String tag = '/TermsConditionsSceen';
 
   @override
-  TermsConditionsScreenState createState() => TermsConditionsScreenState();
+  PrivacyPolicyScreenState createState() => PrivacyPolicyScreenState();
 }
 
-class TermsConditionsScreenState extends State<TermsConditionsScreen> {
+class PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   @override
   void initState() {
     super.initState();
@@ -32,8 +32,8 @@ class TermsConditionsScreenState extends State<TermsConditionsScreen> {
     });
     var res = await FirestoreService().getTermAndCondition();
     for (var i = 0; i < res.length; i++) {
-      if (res[i]["type"] == "terms") {
-        terms = res[i]["termscondition"];
+      if (res[i]["type"] == "privacy") {
+        terms = res[i]["privacypolicy"];
         break;
       }
     }
@@ -60,7 +60,7 @@ class TermsConditionsScreenState extends State<TermsConditionsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Fantasy Terms & conditions',
+                'Fantasy - Privacy & Policy',
                 style: boldTextStyle(color: Colors.white, size: 18),
               ).paddingBottom(spacing_standard),
               loading

@@ -2,6 +2,7 @@ import 'package:fantasyapp/screens/flix_account_settings_screen.dart';
 import 'package:fantasyapp/screens/flix_edit_profile_screen.dart';
 import 'package:fantasyapp/screens/flix_help_screen.dart';
 import 'package:fantasyapp/screens/flix_terms_conditions_screen.dart';
+import 'package:fantasyapp/screens/privacy_policy.dart';
 import 'package:fantasyapp/utils/flix_app_widgets.dart';
 import 'package:fantasyapp/utils/flix_constants.dart';
 import 'package:fantasyapp/utils/resources/flix_colors.dart';
@@ -37,7 +38,13 @@ class MoreFragmentState extends State<MoreFragment> {
     return Scaffold(
       backgroundColor: muvi_appBackground,
       appBar: AppBar(
-        title: toolBarTitle(context, "More"),
+        automaticallyImplyLeading: false,
+        //  leading: GestureDetector(
+        //   onTap: (){
+        //     Navigator.pop(context);
+        //   },
+        //   child: Icon(Icons.arrow_back,color: Colors.white,)),
+        title: Center(child: toolBarTitle(context, "Setting")),
         backgroundColor: muvi_navigationBackground,
         elevation: 0,
         iconTheme: IconThemeData(color: white),
@@ -56,7 +63,7 @@ class MoreFragmentState extends State<MoreFragment> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(radius: 30, child: networkImage(profileImage)).paddingRight(spacing_standard_new),
+                CircleAvatar(radius: 30, child: CircleAvatar(child: networkImage(profileImage))).paddingRight(spacing_standard_new),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,16 +73,16 @@ class MoreFragmentState extends State<MoreFragment> {
                     ],
                   ),
                 ),
-                Image.asset(
-                  ic_edit_profile,
-                  width: 20,
-                  height: 20,
-                  color: muvi_colorPrimary,
-                ).paddingAll(spacing_control).onTap(
-                  () {
-                    EditProfileScreen().launch(context);
-                  },
-                )
+                // Image.asset(
+                //   ic_edit_profile,
+                //   width: 20,
+                //   height: 20,
+                //   color: muvi_colorPrimary,
+                // ).paddingAll(spacing_control).onTap(
+                //   () {
+                //     EditProfileScreen().launch(context);
+                //   },
+                // )
               ],
             ),
           ),
@@ -89,48 +96,11 @@ class MoreFragmentState extends State<MoreFragment> {
                     "General Settings",
                     colorThird: false,
                   ).paddingOnly(left: spacing_standard_new, right: spacing_standard_new, top: 12, bottom: 12),
-                  subType(context, "Account Settings", () {
-                    AccountSettingsScreen().launch(context);
-                  }, ic_settings),
-                  Row(
-                    children: [
-                      Image.asset(
-                        ic_dark_mode,
-                        width: 20,
-                        height: 20,
-                        color: muvi_textColorThird,
-                      ).paddingRight(spacing_standard),
-                      itemTitle(context, "Dark Mode").expand(),
-                      Theme(
-                        data: Theme.of(context).copyWith(unselectedWidgetColor: muvi_colorPrimary),
-                        child: Checkbox(
-                          activeColor: muvi_colorPrimary,
-                          checkColor: muvi_navigationBackground,
-                          value: isDarkMode,
-                          onChanged: (value) {
-                            setState(
-                              () {
-                                isDarkMode = value;
-                              },
-                            );
-                          },
-                        ),
-                      )
-                    ],
-                  )
-                      .paddingOnly(
-                    left: spacing_standard_new,
-                    right: spacing_control,
-                    top: spacing_control,
-                    bottom: spacing_control,
-                  )
-                      .onTap(
-                    () {
-                      setState(() {
-                        isDarkMode = !isDarkMode!;
-                      });
-                    },
-                  ),
+                  // subType(context, "Account Settings", () {
+                  //   AccountSettingsScreen().launch(context);
+                  // }, ic_settings),
+                 
+                    
                   subType(context, "Language", () {}, ic_language),
                   subType(context, "Help", () {
                     HelpScreen().launch(context);
@@ -145,7 +115,7 @@ class MoreFragmentState extends State<MoreFragment> {
                     TermsConditionsScreen().launch(context);
                   }, null),
                   subType(context, "Privacy & Policy", () {
-                    TermsConditionsScreen().launch(context);
+                    PrivacyPolicyScreen().launch(context);
                   }, null),
                   subType(context, "Logout", () {
                     finish(context);
@@ -159,12 +129,14 @@ class MoreFragmentState extends State<MoreFragment> {
     );
   }
 
-  void getUserData() {
+  Future<void> getUserData() async {
+ final prefs = await SharedPreferences.getInstance();
+        var email = prefs.getString("user_email");
     setState(
       () {
-        profileImage = "images/muvi/items/oval_ek1.png";
-        userName = "Vicotria Becks";
-        userEmail = "vicotriabecks@gmail.com";
+        profileImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_ZWw4uRMopVRm6qcPDmQqdd7HugVFwgNNhg&s";
+        userName =email.toString().substring(0,4);
+        userEmail = email.toString();
       },
     );
   }
