@@ -84,6 +84,11 @@ class FirestoreService {
     return standings;
   }
 
+  Future<dynamic> getCurrentTimer() async {
+
+
+  }
+
   Future<dynamic> getCurrentDraft() async {
     QuerySnapshot snapshot = await _firestore
         .collection('drafts') // Firestore collection
@@ -105,30 +110,42 @@ class FirestoreService {
     }
   }
 
-  Future<void> updateMemberScore(String draftId, String memberId, int index,
+  updateMemberScore(String draftId, String memberId, int index,
     int scoreIncrement, String state) async {
   try {
     // Reference to the draft document
     DocumentReference draftRef =
         FirebaseFirestore.instance.collection('drafts').doc(draftId);
 
+    
+
     // Retrieve the current draft document snapshot
     DocumentSnapshot draftSnapshot = await draftRef.get();
 
+
     if (draftSnapshot.exists) {
+      if(draftSnapshot["isActive"]==false){
+        return false;
+      }
       // Get the current members list
       List<dynamic> members = draftSnapshot['members'];
-
-      // Check if the index is within bounds
+        for(var i=0;i<members.length;i++){
+          if(memberId==members[i]["id"]){
+            index = i; 
+            break;
+          }
+        
+        }
       if (index >= 0 && index < members.length) {
-        // Increment or decrement the score based on state
         if (state == "inc") {
           members[index]['score'] =
-              (int.parse(members[index]['score']) + scoreIncrement).toString();
+              (int.parse(members[index]['score'].toString()) + scoreIncrement).toString();
         } else if (state == "dec") {
           members[index]['score'] =
-              (int.parse(members[index]['score']) - scoreIncrement).toString();
+              (int.parse(members[index]['score'].toString()) - scoreIncrement).toString();
         }
+
+        print(draftSnapshot['members'][index]["score"].toString());
 
         final prefs = await SharedPreferences.getInstance();
         var email = prefs.getString("user_email");
@@ -150,7 +167,7 @@ class FirestoreService {
           members[index]["vote"].add({"email": email});
           print("Email added to the vote array.");
         }
-        members;
+       
 
         // Update the members array in Firestore
         await draftRef.update({'members': members});
@@ -161,6 +178,7 @@ class FirestoreService {
     } else {
       print('Draft document not found.');
     }
+    return true;
   } catch (e) {
     print('Error updating member score: $e');
   }

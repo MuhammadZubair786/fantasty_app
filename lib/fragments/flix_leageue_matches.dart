@@ -10,6 +10,8 @@ import 'package:nb_utils/nb_utils.dart';
 import '../utils/flix_app_widgets.dart';
 
 class ActiveMatchupsPage extends StatefulWidget {
+  const ActiveMatchupsPage({super.key});
+
   @override
   State<ActiveMatchupsPage> createState() => _ActiveMatchupsPageState();
 }
@@ -65,7 +67,7 @@ class _ActiveMatchupsPageState extends State<ActiveMatchupsPage> {
                       color: muvi_colorPrimary, // Underline color
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Active Match Up",
                     textAlign: TextAlign.justify,
                     maxLines: 1,

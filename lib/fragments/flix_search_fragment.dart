@@ -22,7 +22,7 @@ class _SearchFragmentState extends State<SearchFragment> {
 
   var draftOpen = false;
 
-  Future<void> _toggleDraftStatus(int index, status) async {
+  Future<void> _toggleDraftStatus(int index, status, id) async {
     if (_remainingTime == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -32,25 +32,69 @@ class _SearchFragmentState extends State<SearchFragment> {
         ),
       );
     } else {
+      var wrestlerId = "";
       if (status) {
-        await FirestoreService().updateMemberScore(wrestlers[0]["draftId"],
-            availableWrestlers[index]["id"], index, 1, "inc");
+        for (var i = 0; i < wrestlers.length; i++) {
+          if (true) {
+            if (id == availableWrestlers[index]["id"]) {
+              wrestlerId = availableWrestlers[index]["id"];
+            }
+          }
+        }
+        var res = await FirestoreService().updateMemberScore(
+            wrestlers[0]["draftId"], wrestlerId, index, 1, "inc");
+        if (res == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Time Is Over Or Admin End Draft"),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 2),
+            ),
+          );
+          _remainingTime=0;
+          setState(() {
+            
+          });
+        } else {
+          availableWrestlers[index]['score'] =
+              (int.parse(availableWrestlers[index]['score'].toString()) + 1)
+                  .toString();
 
-        availableWrestlers[index]['score'] =
-            (int.parse(availableWrestlers[index]['score'].toString()) + 1)
-                .toString();
-
-        draftedWrestlers.add(availableWrestlers[index]);
-        availableWrestlers.removeAt(index);
+          availableWrestlers[index]["isDrafted"] = true;
+          draftedWrestlers.add(availableWrestlers[index]);
+          availableWrestlers.removeAt(index);
+        }
       } else {
-        await FirestoreService().updateMemberScore(wrestlers[0]["draftId"],
-            draftedWrestlers[index]["id"], index, 1, "dec");
+        for (var i = 0; i < wrestlers.length; i++) {
+          if (true) {
+            if (id == draftedWrestlers[index]["id"]) {
+              wrestlerId = draftedWrestlers[index]["id"];
+            }
+          }
+        }
+        var res = await FirestoreService().updateMemberScore(
+            wrestlers[0]["draftId"], wrestlerId, index, 1, "dec");
 
-        draftedWrestlers[index]['score'] =
-            (int.parse(draftedWrestlers[index]['score']) - 1).toString();
+        if (res == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Time Is Over Or Admin End Draft"),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 2),
+            ),
+          );
+          _remainingTime=0;
+          setState(() {
+            
+          });
+        } else {
+          draftedWrestlers[index]['score'] =
+              (int.parse(draftedWrestlers[index]['score']) - 1).toString();
+          draftedWrestlers[index]["isDrafted"] = false;
 
-        availableWrestlers.add(draftedWrestlers[index]);
-        draftedWrestlers.removeAt(index);
+          availableWrestlers.add(draftedWrestlers[index]);
+          draftedWrestlers.removeAt(index);
+        }
       }
     }
   }
@@ -72,7 +116,7 @@ class _SearchFragmentState extends State<SearchFragment> {
     var res = await FirestoreService().getCurrentDraft();
     log(res.toString());
     if (res.length != 0) {
-      _remainingTime = int.parse(res[0]["timer"]);
+      _remainingTime = int.parse(res[0]["timer"].toString());
 
       listData.addAll(res);
 
@@ -354,8 +398,8 @@ class _SearchFragmentState extends State<SearchFragment> {
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
             onPressed: () => buttonText == "Draft"
-                ? _toggleDraftStatus(index, true)
-                : _toggleDraftStatus(index, false),
+                ? _toggleDraftStatus(index, true, wrestler["id"])
+                : _toggleDraftStatus(index, false, wrestler["id"]),
             child: Text(
               buttonText,
               style: TextStyle(

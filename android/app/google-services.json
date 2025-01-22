@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "336317455241",
-    "project_id": "sky-resource-form",
-    "storage_bucket": "sky-resource-form.firebasestorage.app"
+    "project_number": "208149025123",
+    "project_id": "fantasy-app-ff2b6",
+    "storage_bucket": "fantasy-app-ff2b6.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:336317455241:android:c37dd9059e58e3f50f9f58",
+        "mobilesdk_app_id": "1:208149025123:android:14cd4cbb6801111292c356",
         "android_client_info": {
           "package_name": "com.fantasty_app.com"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDWIrqhQ_IklA0WUTtmItv6mHWGThjxyy0"
+          "current_key": "AIzaSyBIdkzM62BmnGxGWGMDj8lCjAX-pTQUV-Y"
         }
       ],
       "services": {
